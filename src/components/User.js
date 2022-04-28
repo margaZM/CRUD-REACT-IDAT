@@ -1,11 +1,18 @@
 import styled from 'styled-components';
 import { setDeleteUser } from '../redux/slices/userSlices';
 import { useDispatch } from 'react-redux';
+import { ModalConfirmDelete } from './ModalConfirmToDelete';
+import { useState } from 'react';
 
 export const User = ({ isEdit, user, setIsEdit, setUserToUpdate }) => {
 	const dispatch = useDispatch();
+	const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
 
 	const handleDelete = () => {
+		setIsOpenModalDelete(true);
+	};
+
+	const confirmDeleteUser = () => {
 		const existUsers = localStorage.getItem('users');
 		try {
 			const allUsers = JSON.parse(existUsers);
@@ -49,6 +56,16 @@ export const User = ({ isEdit, user, setIsEdit, setUserToUpdate }) => {
 					Eliminar
 				</button>
 			</div>
+			{isOpenModalDelete && (
+				<ModalConfirmDelete
+					setIsOpenModal={setIsOpenModalDelete}
+					isOpenModal={isOpenModalDelete}
+					title={'Eliminar publicación'}
+					message={`¿Estás seguro que deseas eliminar el usuario`}
+					confirmDeleteUser={confirmDeleteUser}
+					currentUser={user}
+				/>
+			)}
 		</Container>
 	);
 };

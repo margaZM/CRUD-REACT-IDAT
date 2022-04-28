@@ -54,7 +54,7 @@ export const FormUsers = ({ setIsEdit, isEdit, userToUpdate }) => {
 	return (
 		<Container>
 			<ContainerForm>
-				<h1>Agregar Usuarios</h1>
+				<h1>{isEdit ? 'Editar Usuario' : 'Agregar Usuario'}</h1>
 				<form action="" onSubmit={handleSubmit}>
 					<Grid>
 						<Input
